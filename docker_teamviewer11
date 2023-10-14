@@ -1,0 +1,59 @@
+#!/bin/bash
+#set -x
+
+#---
+# Shellscript for the purpose of creating a container via Docker for using the software Teamviewer v.11.0.25
+# Used the Ubuntu image 14.04
+# Reference for xorg configuration in docker https://github.com/mviereck/x11docker/wiki/
+#---
+
+# Creating directory for container
+echo 'Creating the container directory'; sleep 2
+mkdir -v $HOME/teamv_cont
+
+# Building the container image
+echo 'Building the container image' ; sleep 2
+docker build -t ubu14/teamviewer $HOME/docker-teamviewer11/
+
+# Creating and configuring the file to share the Xorg session authority cookie
+echo 'Creating the X graph server authority cookie'; sleep 2; \
+rm -rf /tmp/containercookie; \ 
+touch /tmp/containercookie 2> /dev/null; \
+Cookiefile=/tmp/containercookie; \
+Cookie="$(xauth nlist $DISPLAY | sed -e 's/^..../ffff/')"; \
+echo "$Cookie" | xauth -f "$Cookiefile" nmerge -
+
+# Starting the container
+echo 'Starting the container'; sleep 2 
+docker run -it -d --name teamviewer --env XAUTHORITY=/cookie -v $Cookiefile:/cookie --env DISPLAY=$DISPLAY -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --ipc=host ubu14/teamviewer; docker container prune -f
+
+# Waiting for the global.conf file to be configured so as not to have to accept the license every time the container starts
+echo "Waiting for configuration of the global.conf file to accept the license only once send the new file to the directory $HOME/teamv_conf" 
+while [ TRUE ];
+do 
+	unset lic_accep
+	lic_accep=$(docker exec teamviewer grep "EulaAccepted = 1" /opt/teamviewer/config/global.conf 2> /dev/null)
+	if [ -z "$lic_accep" ];
+	then	
+		sleep 2
+	else
+		docker cp teamviewer:/opt/teamviewer/config/global.conf $HOME/teamv_cont
+		break
+	fi
+done
+
+# Creating Alias ​​to start container with a command (if not already created)
+if [ -z "$(grep 'dock_teamv' $HOME/.bashrc)" ];
+then
+	echo 'Creating alias for container, please use dock_teamv command to start the container'; sleep 2
+	echo -e "\nalias dock_teamv='rm -r /tmp/containercookie; touch /tmp/containercookie; \
+	Cookiefile=/tmp/containercookie \
+	Cookie=\"\$(xauth nlist \$DISPLAY | sed -e 's/^..../ffff/')\" ; \
+	echo \"\$Cookie\" | xauth -f \"\$Cookiefile\" nmerge -; \
+	docker run -it --name teamviewer --env XAUTHORITY=/cookie --volume \$Cookiefile:/cookie --env DISPLAY=\$DISPLAY --volume /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v \$HOME/teamv_cont/global.conf:/opt/teamviewer/config/global.conf --ipc=host ubu14/teamviewer;docker container prune -f; reset'" >> $HOME/.bashrc
+	source $HOME/.bashrc; bash
+fi
+
+# Save container image
+
+docker save -o ubu14_teamv11.tar ubu14/teamviewer
