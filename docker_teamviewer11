@@ -55,5 +55,6 @@ then
 fi
 
 # Save container image
+echo Save container image
 
-docker save -o ubu14_teamv11.tar ubu14/teamviewer
+docker save -o teamv_cont/ubu14_teamv11.tar ubu14/teamviewer
