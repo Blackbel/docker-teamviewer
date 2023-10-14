@@ -13,7 +13,7 @@ mkdir -v $HOME/teamv_cont
 
 # Building the container image
 echo 'Building the container image' ; sleep 2
-docker build -t ubu14/teamviewer $HOME/docker-teamviewer11/
+docker build -t ubu14/teamviewer $HOME/docker-teamviewer/
 
 # Creating and configuring the file to share the Xorg session authority cookie
 echo 'Creating the X graph server authority cookie'; sleep 2; \
