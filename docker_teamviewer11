@@ -1,5 +1,4 @@
 #!/bin/bash
-#set -x
 
 #---
 # Shellscript for the purpose of creating a container via Docker for using the software Teamviewer v.11.0.25
