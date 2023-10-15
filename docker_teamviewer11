@@ -16,7 +16,7 @@ docker build -t ubu14/teamviewer11 $HOME/docker-teamviewer/
 
 # Creating and configuring the file to share the Xorg session authority cookie
 echo 'Creating the X graph server authority cookie'; sleep 2; \
-rm -rf /tmp/containercookie; \ 
+rm -rf /tmp/containercookie; \
 touch /tmp/containercookie 2> /dev/null; \
 Cookiefile=/tmp/containercookie; \
 Cookie="$(xauth nlist $DISPLAY | sed -e 's/^..../ffff/')"; \
@@ -53,6 +53,6 @@ then
 	source $HOME/.bashrc
 fi
 
-# Save container image
+# Saving container image, please wait...
 echo Save container image
 docker save -o $HOME/teamv_cont/ubu14_teamv11.tar ubu14/teamviewer11; bash
