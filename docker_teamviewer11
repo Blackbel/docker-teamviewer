@@ -50,7 +50,7 @@ then
 	Cookie=\"\$(xauth nlist \$DISPLAY | sed -e 's/^..../ffff/')\" ; \
 	echo \"\$Cookie\" | xauth -f \"\$Cookiefile\" nmerge -; \
 	docker run -it --name teamviewer --env XAUTHORITY=/cookie --volume \$Cookiefile:/cookie --env DISPLAY=\$DISPLAY --volume /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 -v \$HOME/teamv_cont/global.conf:/opt/teamviewer/config/global.conf --ipc=host ubu14/teamviewer;docker container prune -f; reset'" >> $HOME/.bashrc
-	source $HOME/.bashrc; bash
+	source $HOME/.bashrc
 fi
 
 # Save container image
