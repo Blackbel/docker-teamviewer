@@ -50,3 +50,6 @@ Xorg server. You may also need to run command `xhost +` on the host.
     $ docker run -it -d --name teamviewer --env XAUTHORITY=/cookie \
     -v $Cookiefile:/cookie --env DISPLAY=$DISPLAY \ 
     -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --ipc=host ubu14/teamviewer
+
+Example of container run
+![](dock_cont_teamv11.png)
