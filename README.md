@@ -14,11 +14,11 @@ Schscrt also saves the container image in the teamv_cont directory, if you don't
 
 To run the shell script outside the directory:
 
-`bash docker-teamviewer/docker-teamviewer11`
+`bash docker-teamviewer/docker_teamviewer11`
 
 Or inside on project directory:
 
-`bash docker-teamviewer11`
+`bash docker_teamviewer11`
 
 
 To create the own image `your signature/teamviewer`, execute the following command in the
