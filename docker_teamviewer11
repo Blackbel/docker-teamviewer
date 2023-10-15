@@ -12,7 +12,7 @@ mkdir -v $HOME/teamv_cont
 
 # Building the container image
 echo 'Building the container image' ; sleep 2
-docker build -t ubu14/teamviewer $HOME/docker-teamviewer/
+docker build -t ubu14/teamviewer11 $HOME/docker-teamviewer/
 
 # Creating and configuring the file to share the Xorg session authority cookie
 echo 'Creating the X graph server authority cookie'; sleep 2; \
@@ -24,7 +24,7 @@ echo "$Cookie" | xauth -f "$Cookiefile" nmerge -
 
 # Starting the container
 echo 'Starting the container'; sleep 2 
-docker run -it -d --name teamviewer --env XAUTHORITY=/cookie -v $Cookiefile:/cookie --env DISPLAY=$DISPLAY -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --ipc=host ubu14/teamviewer; docker container prune -f
+docker run -it -d --name teamviewer --env XAUTHORITY=/cookie -v $Cookiefile:/cookie --env DISPLAY=$DISPLAY -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --ipc=host ubu14/teamviewer11; docker container prune -f
 
 # Waiting for the global.conf file to be configured so as not to have to accept the license every time the container starts
 echo "Waiting for configuration of the global.conf file to accept the license only once send the new file to the directory $HOME/teamv_conf" 
