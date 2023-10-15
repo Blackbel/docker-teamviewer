@@ -46,7 +46,7 @@ Xorg server. You may also need to run command `xhost +` on the host.
     docker pull... only if you sent it to the registry
     $ docker pull your signature/teamviewer11
 
-    Run container manually (the var $Cookiefile need to be configured, see the docker-teamviewer11 source for details)
+    Run container manually (the var $Cookiefile need be configured, see the docker-teamviewer11 source for details)
     $ docker run -it -d --name teamviewer --env XAUTHORITY=/cookie \
     -v $Cookiefile:/cookie --env DISPLAY=$DISPLAY \ 
     -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --ipc=host ubu14/teamviewer
