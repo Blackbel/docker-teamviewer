@@ -2,7 +2,7 @@ docker-teamviewer
 =================
 
 [TeamViewer](https://github.com/bbinet/docker-teamviewer): the TeamViewer
-docker container(orinal project).
+docker container.
 
 
 Build
