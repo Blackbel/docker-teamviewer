@@ -21,7 +21,7 @@ Or inside on project directory:
 `bash docker_teamviewer11`
 
 
-To create the own image `your signature/teamviewer`, execute the following command in the
+To create the own image `your signature/teamviewer11`, execute the following command in the
 `docker-teamviewer` folder:
 
     docker build -t your signature/teamviewer11 . 
@@ -30,11 +30,12 @@ You can now push the new image to the public registry:
     
     docker push your signature/teamviewer11
 
+You only need to build your own if you have another configuration outside of Shellscript, as it already builds the image.
 
 Run
 ---
 
-To start the container you can use the alias ():
+To start the container you can use the alias:
 
     $ dock_teamv
 
