@@ -24,7 +24,7 @@ echo "$Cookie" | xauth -f "$Cookiefile" nmerge -
 
 # Starting the container
 echo 'Starting the container'; sleep 2 
-docker run -it -d --name teamviewer --env XAUTHORITY=/cookie -v $Cookiefile:/cookie --env DISPLAY=$DISPLAY -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --ipc=host ubu14/teamviewer11; docker container prune -f
+docker run -it -d --name teamviewer --env XAUTHORITY=/cookie -v $Cookiefile:/cookie --env DISPLAY=$DISPLAY -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --ipc=host ubu14/teamviewer11
 
 # Waiting for the global.conf file to be configured so as not to have to accept the license every time the container starts
 echo "Waiting for configuration of the global.conf file to accept the license only once send the new file to the directory $HOME/teamv_conf" 
